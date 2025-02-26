@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exportador de Dados</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Exportador de Dados</h2>
+    <form action="/search" method="post">
+        <label>URL da API:</label>
+        <input type="text" name="url" required>
+        <label>Chave de API (opcional):</label>
+        <input type="text" name="chave">
+        <button type="submit">Consultar</button>
+    </form>
+
+    <div th:if="${dados}">
+        <h3>Dados Retornados:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th th:each="key : ${dados[0].keySet()}" th:text="${key}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="linha : ${dados}">
+                    <td th:each="value : ${linha.values()}" th:text="${value}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

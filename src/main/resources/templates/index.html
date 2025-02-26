@@ -18,22 +18,33 @@
         <label>Chave de API (opcional):</label>
         <input type="text" name="chave">
         <button type="submit">Consultar</button>
+        
     </form>
+    
 
-    <div th:if="${dados}">
+    <div th:if="${dados}" >
         <h3>Dados Retornados:</h3>
         <table>
             <thead>
-                <tr>
+                <tr >
                     <th th:each="key : ${dados[0].keySet()}" th:text="${key}"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="linha : ${dados}">
+                <tr th:each="linha, iterStat : ${dados}" th:if="${iterStat.index < 5}">
                     <td th:each="value : ${linha.values()}" th:text="${value}"></td>
                 </tr>
             </tbody>
         </table>
+
+        <form action="/export/csv" method="post">
+            <input type="hidden" name="dados" th:value="${dadosJson}">
+            <button type="submit">Exportar CSV</button>
+        </form>
+        
+        <form action="/export/xml" method="post">
+            <input type="hidden" name="dados" th:value="${dadosJson}">
+            <button type="submit">Exportar XML</button>
     </div>
 </body>
 </html>

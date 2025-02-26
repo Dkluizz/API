@@ -16,7 +16,7 @@ public class ApiService {
 
     }
 
-    public List<Map<String,Object>> searchApi (String url, String key){
+    public List<Map<String,Object>> searchApi(String url, String key){
 
         return webCliente.get().uri(url)
         .header("Authorization", key != null ? "Bearer " + key : "")
